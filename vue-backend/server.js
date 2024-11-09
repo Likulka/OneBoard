@@ -5,6 +5,8 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const mongoose = require('mongoose');
 const User = require('./models/User'); // Подключение модели пользователя
+require('dotenv').config();
+console.log('MONGODB_URI:', process.env.MONGODB_URI);
 
 const app = express();
 const PORT = 5000;
