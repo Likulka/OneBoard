@@ -24,7 +24,7 @@ async function fetchUserData() {
   if (token) {
     try {
       // Запрос к API для получения данных пользователя
-      const response = await fetch('http://localhost:5000/user', {
+      const response = await fetch('http://localhost:5010/user', {
         headers: {
           Authorization: `Bearer ${token}`
         }
