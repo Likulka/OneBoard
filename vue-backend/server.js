@@ -9,7 +9,7 @@ require('dotenv').config();
 console.log('MONGODB_URI:', process.env.MONGODB_URI);
 
 const app = express();
-const PORT = 5000;
+const PORT = 5010;
 const SECRET_KEY = 'your_secret_key';
 
 // Используем CORS и bodyParser
