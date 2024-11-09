@@ -5,15 +5,50 @@
   width: 100%;
   margin: 0 auto;
   padding: 2rem;
+  color: #0e0e0e;
   font-weight: normal;
 }
 
 a,
 .green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
+  text-decoration: none;;
   transition: 0.4s;
   padding: 3px;
+}
+
+.yellow{
+  background-color: rgb(189, 189, 1);
+}
+
+
+.white{
+  background-color: rgb(255, 255, 255);
+}
+
+.blue{
+  background-color: rgba(81, 175, 252, 1);
+}
+
+.red{
+  background-color: rgba(252, 81, 81, 1);
+}
+
+.brown{
+  background-color: rgba(187, 114, 85, 1);
+}
+
+
+
+#stickerDesk {
+  grid-row: span 2;
+}
+
+#news{
+  grid-row: span 2;
+}
+
+#writingSpace{
+  grid-row: span 3;
 }
 
 @media (hover: hover) {

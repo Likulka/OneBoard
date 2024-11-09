@@ -1,26 +1,35 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+
 import RegisterPage from "@/views/Register.vue";
 import LoginPage from "@/views/Login.vue";
 import Header from "@/components/Header.vue";
+import Note from "@/components/Note.vue";
+import Forecast from "@/components/Forecast.vue";
+import StickerDesk from "@/components/StickerDesk.vue";
+import WritingSpace from "@/components/WritingSpace.vue";
+import News from "@/components/News.vue";
+
+
+
 </script>
 
 <template>
   <Header/>
 
   <main>
-<!--    <TheWelcome />-->
-<!--    <RegisterPage/>-->
-
     <RouterView />
-
   </main>
 </template>
 
 <style scoped>
 header {
   line-height: 1.5;
+}
+
+
+
+.container section {
+
 }
 
 .logo {
@@ -44,5 +53,7 @@ header {
     place-items: flex-start;
     flex-wrap: wrap;
   }
+
+
 }
 </style>
