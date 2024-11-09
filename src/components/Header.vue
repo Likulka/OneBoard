@@ -19,12 +19,41 @@ import { ref, onMounted } from 'vue';
 const isLoggedIn = ref(false);
 const userName = ref('');
 
-onMounted(() => {
-  const user = JSON.parse(localStorage.getItem('user'));
-  if (user && user.name) {
-    isLoggedIn.value = true;
-    userName.value = user.name;
+async function fetchUserData() {
+  const token = localStorage.getItem('token');
+  if (token) {
+    try {
+      // Запрос к API для получения данных пользователя
+      const response = await fetch('http://localhost:5000/user', {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      console.log(response);
+      if (response.ok) {
+        const data = await response.json();
+        userName.value = data.name; // предполагаем, что имя пользователя приходит как data.name
+        isLoggedIn.value = true;
+      } else {
+        console.error("Не удалось получить данные пользователя");
+      }
+    } catch (error) {
+      console.error("Ошибка сети", error);
+    }
   }
+}
+
+
+function logout() {
+  localStorage.removeItem('token');
+  isLoggedIn.value = false;
+  userName.value = '';
+  // Можно также перенаправить на страницу входа
+}
+
+
+onMounted(() => {
+  fetchUserData();
 });
 
 
@@ -37,6 +66,7 @@ onMounted(() => {
   padding: 1rem;
   display: flex;
   justify-content: space-between;
+  flex-wrap: nowrap;
   align-items: center;
 }
 
