@@ -1,8 +1,8 @@
 <script setup>
 import HelloWorld from './components/HelloWorld.vue'
 import TheWelcome from './components/TheWelcome.vue'
-import RegisterPage from "@/pages/RegisterPage.vue";
-import LoginPage from "@/pages/LoginPage.vue";
+import RegisterPage from "@/views/Register.vue";
+import LoginPage from "@/views/Login.vue";
 </script>
 
 <template>
