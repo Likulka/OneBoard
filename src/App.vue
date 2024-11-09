@@ -16,6 +16,8 @@ import LoginPage from "@/pages/LoginPage.vue";
 
   <main>
 <!--    <TheWelcome />-->
+    <RegisterPage/>
+
     <LoginPage/>
   </main>
 </template>

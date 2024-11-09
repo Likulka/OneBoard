@@ -25,7 +25,7 @@ app.post('/login', async (req, res) => {
     const user = users.find(user => user.email === email);
     if (user && (await bcrypt.compare(password, user.password))) {
         const token = jwt.sign({ email: user.email }, SECRET_KEY, { expiresIn: '1h' });
-        res.json({ token });
+        res.json({ token, message:'You are authorized!'});
     } else {
         res.status(401).json({ message: 'Invalid credentials' });
     }
