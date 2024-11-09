@@ -29,8 +29,8 @@ export default {
         });
         const data = await response.json();
         if (data.success) {
-          // Успешная регистрация, перенаправление на страницу входа
-          this.$router.push('/login');
+          // Успешная регистрация, перенаправление на страницу dashboard
+          this.$router.push('/dashboard');
         } else {
           this.errorMessage = 'Ошибка регистрации: ' + data.message;
         }

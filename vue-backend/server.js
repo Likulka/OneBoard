@@ -33,12 +33,12 @@ app.post('/register', async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 10);
         const newUser = new User({ email, password: hashedPassword });
         await newUser.save();
-        res.status(201).json({ message: 'User registered successfully' });
+        res.status(201).json({ success: true, message: 'User registered successfully' });
     } catch (error) {
         if (error.code === 11000) { // Ошибка уникальности email
-            res.status(400).json({ message: 'Email already exists' });
+            res.status(400).json({ success: false, message: 'Email already exists' });
         } else {
-            res.status(500).json({ message: 'Error registering user' });
+            res.status(500).json({ success: false, message: 'Error registering user' });
         }
     }
 });
