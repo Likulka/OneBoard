@@ -6,6 +6,8 @@
       <input type="password" v-model="password" placeholder="Пароль" required />
       <button type="submit">Войти</button>
     </form>
+    <RouterLink to="/register">Register</RouterLink>
+
   </div>
 </template>
 
