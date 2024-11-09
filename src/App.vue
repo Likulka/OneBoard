@@ -12,13 +12,13 @@ import News from "@/components/News.vue";
 
 
 </script>
-
 <template>
   <Header/>
 
   <main>
     <RouterView />
   </main>
+
 </template>
 
 <style scoped>
@@ -26,15 +26,9 @@ header {
   line-height: 1.5;
 }
 
+main{
+flex-grow: 1;
 
-
-.container section {
-
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
 }
 
 @media (min-width: 1024px) {

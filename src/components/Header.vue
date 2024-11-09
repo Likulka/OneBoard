@@ -1,10 +1,12 @@
 <template>
   <header class="header">
     <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/dashboard">Dashboard</RouterLink>
-        <RouterLink to="/login">Login</RouterLink>
-        <RouterLink to="/register">Register</RouterLink>
+      <button @click="toggleMenu">Открыть/Закрыть меню</button>
+
+      <RouterLink to="/">Home</RouterLink>
+      <RouterLink to="/dashboard">Dashboard</RouterLink>
+      <RouterLink to="/login">Login</RouterLink>
+      <RouterLink to="/register">Register</RouterLink>
     </nav>
     <div class="auth-info">
       <span v-if="isLoggedIn">Привет, {{ userName }}</span>
@@ -15,6 +17,9 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
+import { useStore } from 'vuex';
+
+const store = useStore();
 
 const isLoggedIn = ref(false);
 const userName = ref('');
@@ -23,16 +28,14 @@ async function fetchUserData() {
   const token = localStorage.getItem('token');
   if (token) {
     try {
-      // Запрос к API для получения данных пользователя
       const response = await fetch('http://localhost:5010/user', {
         headers: {
           Authorization: `Bearer ${token}`
         }
       });
-      console.log(response);
       if (response.ok) {
         const data = await response.json();
-        userName.value = data.name; // предполагаем, что имя пользователя приходит как data.name
+        userName.value = data.name;
         isLoggedIn.value = true;
       } else {
         console.error("Не удалось получить данные пользователя");
@@ -43,20 +46,20 @@ async function fetchUserData() {
   }
 }
 
-
 function logout() {
   localStorage.removeItem('token');
   isLoggedIn.value = false;
   userName.value = '';
-  // Можно также перенаправить на страницу входа
 }
 
+// Функция для переключения видимости меню
+function toggleMenu() {
+  store.commit('toggleMenuVisibility'); // Вызываем мутацию toggleMenuVisibility
+}
 
 onMounted(() => {
   fetchUserData();
 });
-
-
 </script>
 
 <style scoped>
