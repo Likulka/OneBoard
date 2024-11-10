@@ -17,7 +17,7 @@ const isMenuVisible = computed(() => store.state.isMenuVisible); // Подклю
 <style>
 .side-menu {
 width: 200px;
-height: 100vh;
+//height: 100vh;
 background-color: #2c3e50;
 top: 0;
 transition: transform 0.3s ease; /* Плавное выдвижение меню */
