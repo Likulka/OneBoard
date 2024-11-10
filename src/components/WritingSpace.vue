@@ -1,40 +1,42 @@
 <template>
-  <div class="editor" @scroll="onScroll" ref="editor">
-    <div class="spacer" :style="{ height: spacerHeight + 'px' }"></div>
-    <div class="lines">
-      <div
-          v-for="line in visibleLines"
-          :key="line.number"
-          class="line"
-      >
-        <div class="line-number">{{ line.number }}</div>
-        <input
-            type="text"
-            v-model="line.text"
-            class="line-input"
-        />
+  <div class="editor-container" id="writingSpace">
+    <div class="editor" @scroll="onScroll" ref="editor">
+      <div class="spacer" :style="{ height: spacerHeight + 'px' }"></div>
+      <div class="lines">
+        <div
+            v-for="line in visibleLines"
+            :key="line.number"
+            class="line"
+        >
+          <div class="line-number">{{ line.number }}</div>
+          <input
+              type="text"
+              v-model="line.text"
+              class="line-input"
+          />
+        </div>
       </div>
+      <div class="spacer" :style="{ height: spacerHeight + 'px' }"></div>
     </div>
-    <div class="spacer" :style="{ height: spacerHeight + 'px' }"></div>
   </div>
 </template>
 
 <script>
 export default {
+  name: 'InfiniteEditor',
   data() {
     return {
-      visibleLines: [], // Видимые линии
-      lineHeight: 30, // Высота одной линии в пикселях
-      bufferSize: 20, // Количество линий, отображаемых одновременно
-      spacerHeight: 0, // Высота верхнего и нижнего отступов
-      totalLines: 0, // Общее количество линий сверху и снизу
+      visibleLines: [],
+      lineHeight: 30,
+      bufferSize: 800,
+      spacerHeight: 0,
+      totalLines: 0,
     };
   },
   methods: {
     initialize() {
-      // Начальные линии
-      const startLine = -Math.floor(this.bufferSize / 2);
-      const endLine = Math.floor(this.bufferSize / 2);
+      const startLine = -Math.floor(this.bufferSize / 2) - 100; // Добавили 100 дополнительных строк сверху
+      const endLine = Math.floor(this.bufferSize / 2) + 100;    // И 100 строк снизу
 
       this.visibleLines = [];
       for (let i = startLine; i <= endLine; i++) {
@@ -44,50 +46,51 @@ export default {
         });
       }
 
-      // Устанавливаем высоту отступов
-      this.totalLines = 0;
+      this.totalLines = this.visibleLines.length;
       this.updateSpacerHeight();
 
-      // Устанавливаем начальную позицию прокрутки
       this.$nextTick(() => {
         const editor = this.$refs.editor;
-        editor.scrollTop = editor.scrollHeight / 2 - editor.clientHeight / 2;
+        if (editor) {
+          const lineZeroIndex = this.visibleLines.findIndex(line => line.number === 0);
+          editor.scrollTop = lineZeroIndex * this.lineHeight - editor.clientHeight / 2;
+        }
       });
     },
     onScroll() {
       const editor = this.$refs.editor;
+      if (!editor) return;
       const scrollTop = editor.scrollTop;
 
-      // Если прокручено почти до верха
-      if (scrollTop < this.lineHeight * 5) {
-        this.addLinesToTop(10);
+      if (scrollTop < this.lineHeight * 50) {
+        this.addLinesToTop(50); // Добавляем 50 строк при приближении к верхней границе
       }
 
-      // Если прокручено почти до низа
-      if (scrollTop + editor.clientHeight > editor.scrollHeight - this.lineHeight * 5) {
-        this.addLinesToBottom(10);
+      if (scrollTop + editor.clientHeight > editor.scrollHeight - this.lineHeight * 50) {
+        this.addLinesToBottom(50); // Добавляем 50 строк при приближении к нижней границе
       }
     },
     addLinesToTop(count) {
-      const firstLineNumber = this.visibleLines[0].number;
+      let firstLineNumber = this.visibleLines[0].number;
       for (let i = 1; i <= count; i++) {
+        firstLineNumber--;
         this.visibleLines.unshift({
-          number: firstLineNumber - i,
+          number: firstLineNumber,
           text: '',
         });
       }
       this.totalLines += count;
       this.updateSpacerHeight();
 
-      // Сохраняем позицию прокрутки
       const editor = this.$refs.editor;
       editor.scrollTop += count * this.lineHeight;
     },
     addLinesToBottom(count) {
-      const lastLineNumber = this.visibleLines[this.visibleLines.length - 1].number;
+      let lastLineNumber = this.visibleLines[this.visibleLines.length - 1].number;
       for (let i = 1; i <= count; i++) {
+        lastLineNumber++;
         this.visibleLines.push({
-          number: lastLineNumber + i,
+          number: lastLineNumber,
           text: '',
         });
       }
@@ -95,8 +98,7 @@ export default {
       this.updateSpacerHeight();
     },
     updateSpacerHeight() {
-      // Обновляем высоту отступов
-      this.spacerHeight = this.totalLines * this.lineHeight;
+      this.spacerHeight = (this.totalLines - this.visibleLines.length) * this.lineHeight / 2;
     },
   },
   mounted() {
@@ -106,19 +108,25 @@ export default {
 </script>
 
 <style scoped>
+.editor-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  overflow: hidden;
+}
+
 .editor {
-  height: 500px;
-  overflow-y: scroll;
+  flex-grow: 1;
+  overflow-y: auto;
   background-color: #282c34;
   color: #abb2bf;
   font-family: 'Courier New', Courier, monospace;
-  position: relative;
 }
 
 .lines {
   display: flex;
   flex-direction: column;
-  align-items: stretch;
 }
 
 .line {
