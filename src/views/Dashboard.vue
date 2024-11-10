@@ -1,6 +1,6 @@
 <template>
-    <h1>Dashboard</h1>
-    <p>Welcome to your dashboard!</p>
+<!--    <h1>Dashboard</h1>-->
+<!--    <p>Welcome to your dashboard!</p>-->
     <div :class="['container', {'menu-visible': isMenuVisible}]">
       <SideMenu />
       <Note/>

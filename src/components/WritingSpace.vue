@@ -119,8 +119,8 @@ export default {
 .editor {
   flex-grow: 1;
   overflow-y: auto;
-  background-color: #282c34;
-  color: #abb2bf;
+  background-color: #f6e5d5;
+  color: #2a2e33;
   font-family: 'Courier New', Courier, monospace;
 }
 
