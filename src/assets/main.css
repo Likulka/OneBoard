@@ -1,88 +1,106 @@
 @import './base.css';
 
 #app {
-  max-width: 100%;
-  width: 100%;
-  margin: 0 auto;
-  /*padding: 2rem;*/
-  color: #0e0e0e;
-  font-weight: normal;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-
+	max-width: 100%;
+	width: 100%;
+	margin: 0 auto;
+	/*padding: 2rem;*/
+	color: #0e0e0e;
+	font-weight: normal;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
 }
 
-main{
-  /*height: 100%;*/
-  display: flex;
-  flex-direction: column;
-  padding: 0 20px;
-  min-height: 0;
+main {
+	/*height: 100%;*/
+	display: flex;
+	flex-direction: column;
+	min-height: 0;
 }
 
 a,
 .green {
-  text-decoration: none;;
-  transition: 0.4s;
-  padding: 3px;
+	text-decoration: none;
+	transition: 0.4s;
+	padding: 3px;
 }
 
-.yellow{
-  background-color: rgb(189, 189, 1);
+.yellow {
+	background-color: rgb(189, 189, 1);
 }
 
-
-.white{
-  background-color: rgb(255, 255, 255);
+.white {
+	background-color: rgb(255, 255, 255);
 }
 
-.blue{
-  background-color: rgba(81, 175, 252, 1);
+.blue {
+	background-color: rgba(81, 175, 252, 1);
 }
 
-.red{
-  background-color: rgba(252, 81, 81, 1);
+.red {
+	background-color: rgba(252, 81, 81, 1);
 }
 
-.brown{
-  background-color: rgba(187, 114, 85, 1);
+.brown {
+	background-color: rgba(187, 114, 85, 1);
 }
 
-
+.stickerDesk {
+	background-color: #4a5c5f;
+}
+.notes {
+	background-color: #fdf5cc;
+}
+.weather {
+	background-color: #e5f8ff;
+}
+.news {
+	background-color: #f9f9f9;
+}
 
 #stickerDesk {
-  grid-row: span 2;
+	grid-row: span 2;
+	background-color: #4a5c5f;
 }
 
-#news{
-  grid-row: span 2;
+#news {
+	grid-row: span 2;
+	background-color: #f9f9f9;
 }
 
-#writingSpace{
-  grid-row: span 3;
+#writingSpace {
+	grid-row: span 3;
+	background-color: #fdf5cc;
 }
 
-#sideMenu{
-  grid-row: span 3;
+#note {
+	background-color: #fdf5cc;
+}
+#forecast {
+	background-color: #e5f8ff;
+}
+
+#sideMenu {
+	grid-row: span 3;
 }
 
 @media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
-  }
+	a:hover {
+		background-color: hsla(160, 100%, 37%, 0.2);
+	}
 }
 
 @media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-    flex-direction: column;
-  }
+	body {
+		display: flex;
+		place-items: center;
+		flex-direction: column;
+	}
 
-  #app {
-    /*display: grid;*/
-    /*grid-template-columns: 1fr 1fr;*/
-    /*padding: 0 2rem;*/
-  }
+	#app {
+		/*display: grid;*/
+		/*grid-template-columns: 1fr 1fr;*/
+		/*padding: 0 2rem;*/
+	}
 }
